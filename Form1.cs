@@ -155,22 +155,6 @@ namespace TextReda
             textBox1.Paste();
         }
 
-
-        private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            
-            if (toolStripTextBox1.Text.Length > 0 && e.KeyChar.ToString() == "Enter")
-            {
-                string a = toolStripTextBox1.Text;
-                int b = textBox1.Text.IndexOf(a);
-                if (b > 0)
-                {
-                    int b1 = a.Length;
-                    textBox1.Select(b, b1);
-                }
-            }
-        }
-
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
 
