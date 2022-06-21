@@ -14,6 +14,7 @@ namespace TextReda
     {
         public Form1()
         {
+
             InitializeComponent();
             textBox1.Multiline = true; // разрешаем многострочный текст
                                        // textBox1 занимает всю свободную поверхность форм
@@ -48,12 +49,12 @@ namespace TextReda
                 MessageBoxIcon.Exclamation);
             }
         }
-       
-       
+
+
         // Обработчик события FormClosing формы
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(textBox1.Modified == false) return; // Если текст модифицирован, то спросить, записывать ли файл
+            if (textBox1.Modified == false) return; // Если текст модифицирован, то спросить, записывать ли файл
             DialogResult MBox = MessageBox.Show("Текст был изменен.\nСохранить изменения?",
             "Простой редактор", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
             // YES — диалог; NO — выход; CANCEL — редактировать
@@ -112,7 +113,8 @@ namespace TextReda
 
         private void шрифтToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(fnt.ShowDialog() == DialogResult.OK){
+            if (fnt.ShowDialog() == DialogResult.OK)
+            {
                 textBox1.Font = fnt.Font;
             }
         }
@@ -120,6 +122,7 @@ namespace TextReda
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
+            textBox1.Modified = false;
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -134,7 +137,7 @@ namespace TextReda
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //textBox1.Modified = true;
-            textBox1.Select();
+            //textBox1.Select();
             textBox1.Copy();
         }
 
@@ -153,23 +156,23 @@ namespace TextReda
         {
             if (toolStripTextBox2.Text.Length > 0 && (e.KeyChar == (char)Keys.Enter))
             {
-                
+
                 bl = true;
                 textBox1.Focus();
                 string a = toolStripTextBox2.Text;
                 search_1 = textBox1.Text;
                 int b = textBox1.Text.IndexOf(a);
-                if (b !=-1)
+                if (b != -1)
                 {
                     int b1 = a.Length;
                     textBox1.Select(b, b1);
                     search_1.Remove(b, b1);
-                    for(int i = 0; i < b1; i++)
+                    for (int i = 0; i < b1; i++)
                     {
                         search_1.Insert(b, ((char)4).ToString());
                     }
                 }
-               textBox1.ReadOnly = true;
+                textBox1.ReadOnly = true;
 
             }
         }
@@ -183,7 +186,7 @@ namespace TextReda
 
             if (e.KeyChar == (char)Keys.Enter && bl)
             {
-                
+
                 string a = toolStripTextBox2.Text; // то что ищем
 
                 int n = search_1.IndexOf(a);
@@ -192,14 +195,14 @@ namespace TextReda
                 search_1 = search_1.Remove(n, a.Length);
                 //Console.WriteLine("Строка : {0}", str);
                 textBox1.Select(n, a.Length);
-                    string add = "";
+                string add = "";
 
-                    for (int i = 0; i < a.Length; i++)
-                    {
-                        add += ((char)4).ToString();
-                    }
+                for (int i = 0; i < a.Length; i++)
+                {
+                    add += ((char)4).ToString();
+                }
                 search_1 = search_1.Insert(n, add);
-                  
+
 
             }
             else return;
@@ -229,6 +232,73 @@ namespace TextReda
         {
             Form1 fr = new Form1();
             fr.Show();
+        }
+
+        private void вырезатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //textBox1.Select();
+            textBox1.Cut();
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        bool Search = false;
+        bool Replace = false;
+
+        private void SearchForm(object sender, EventArgs e)
+        {
+            SRForm SR = new SRForm(Search, Replace);
+            SR.Show();
+        }
+
+        private void найтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Search = true;
+            Replace = false;
+            SearchForm(sender, e);
+        }
+
+        private void заменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Search = false;
+            Replace = true;
+            SearchForm(sender, e);
+        }
+
+        private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (number == 13 && textBox1.Text.Length>0)
+            {
+                textBox1.Focus();
+                string str = textBox1.Text;
+                int x = 1, y = 0;
+                int z = Int16.Parse(toolStripTextBox1.Text);
+                if (z != 1)
+                {
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        if (str[i] == '\n')
+                        {
+                            x++;
+                            if (x == z)
+                            {
+                                y = i+1;
+                                break;
+                            }
+                            
+                        }
+                    }
+                }
+                textBox1.Select(y,0);
+            }
+            if (!Char.IsDigit(number) && number != 8) // цифры, клавиша BackSpace и запятая
+            {
+                e.Handled = true;
+            }
         }
     }
 }
