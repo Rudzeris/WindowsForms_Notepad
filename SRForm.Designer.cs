@@ -55,6 +55,7 @@
             this.NextB.TabIndex = 1;
             this.NextB.Text = "Next";
             this.NextB.UseVisualStyleBackColor = true;
+            this.NextB.Click += new System.EventHandler(this.NextB_Click);
             // 
             // groupBox1
             // 
@@ -101,6 +102,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 3;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // SRForm
             // 

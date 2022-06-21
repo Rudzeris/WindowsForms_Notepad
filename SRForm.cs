@@ -41,11 +41,50 @@ namespace TextReda
             }
             else // Перейти...
             {
-                label1.Text = "Найти";
+                label1.Text = "Перейти ";
+                textBox1.Text = "Строка";
                 label2.Visible = false;
                 label2.Enabled = false;
                 PrevB.Visible = false;
+                textBox2.Visible = false;
                 NextB.Text = "Перейти";
+                NextB.Enabled = false;
+            }
+        }
+
+        private void NextB_Click(object sender, EventArgs e)
+        {
+            if (Search == true)// Поиск...
+            {
+                
+            }
+            else
+            if (Replace == true)// Замена...
+            {
+
+            }
+            else // Перейти...
+            {
+                form.Focus();
+                int x = int.Parse(textBox1.Text);
+                form.cross(x);
+            }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (!Char.IsDigit(number) && number != 8) // цифры, клавиша BackSpace и запятая
+            {
+                e.Handled = true;
+            }
+            if (textBox1.Text.Length != 0)
+            {
+                NextB.Enabled = true;
+            }
+            else
+            {
+                NextB.Enabled = false;
             }
         }
 
