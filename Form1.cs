@@ -245,12 +245,17 @@ namespace TextReda
 
         }
 
+        public void settextbox1(string s)
+        {
+            textBox1.Text = s;
+        }
+
         bool Search = false;
         bool Replace = false;
 
         private void SearchForm(object sender, EventArgs e)
         {
-            SRForm SR = new SRForm(Search, Replace);
+            SRForm SR = new SRForm(Search, Replace, this);
             SR.Show();
         }
 
@@ -268,37 +273,44 @@ namespace TextReda
             SearchForm(sender, e);
         }
 
-        private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char number = e.KeyChar;
-            if (number == 13 && textBox1.Text.Length>0)
-            {
-                textBox1.Focus();
-                string str = textBox1.Text;
-                int x = 1, y = 0;
-                int z = Int16.Parse(toolStripTextBox1.Text);
-                if (z != 1)
-                {
-                    for (int i = 0; i < str.Length; i++)
-                    {
-                        if (str[i] == '\n')
-                        {
-                            x++;
-                            if (x == z)
-                            {
-                                y = i+1;
-                                break;
-                            }
+        //private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    char number = e.KeyChar;
+        //    if (number == 13 && textBox1.Text.Length>0)
+        //    {
+        //        textBox1.Focus();
+        //        string str = textBox1.Text;
+        //        int x = 1, y = 0;
+        //        int z = Int16.Parse(toolStripTextBox1.Text);
+        //        if (z != 1)
+        //        {
+        //            for (int i = 0; i < str.Length; i++)
+        //            {
+        //                if (str[i] == '\n')
+        //                {
+        //                    x++;
+        //                    if (x == z)
+        //                    {
+        //                        y = i+1;
+        //                        break;
+        //                    }
                             
-                        }
-                    }
-                }
-                textBox1.Select(y,0);
-            }
-            if (!Char.IsDigit(number) && number != 8) // цифры, клавиша BackSpace и запятая
-            {
-                e.Handled = true;
-            }
+        //                }
+        //            }
+        //        }
+        //        textBox1.Select(y,0);
+        //    }
+        //    if (!Char.IsDigit(number) && number != 8) // цифры, клавиша BackSpace и запятая
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
+
+        private void перейтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Search = true;
+            Replace = true;
+            SearchForm(sender, e);
         }
     }
 }

@@ -14,10 +14,12 @@ namespace TextReda
     {
 
         bool Search, Replace;
+        Form1 form=null;
 
-
-        public SRForm(bool Se,bool Re)
+        public SRForm(bool Se,bool Re, Form1 F)
         {
+            form = F;
+
             InitializeComponent();
             Search = Se;
             Replace = Re;
@@ -45,11 +47,6 @@ namespace TextReda
                 PrevB.Visible = false;
                 NextB.Text = "Перейти";
             }
-        }
-
-        public SRForm()
-        {
-            InitializeComponent();
         }
 
         private void SRForm_Resize(object sender, EventArgs e)
