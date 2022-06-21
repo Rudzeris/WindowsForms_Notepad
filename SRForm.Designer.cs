@@ -46,6 +46,7 @@
             this.PrevB.TabIndex = 0;
             this.PrevB.Text = "Prev";
             this.PrevB.UseVisualStyleBackColor = true;
+            this.PrevB.Click += new System.EventHandler(this.PrevB_Click);
             // 
             // NextB
             // 

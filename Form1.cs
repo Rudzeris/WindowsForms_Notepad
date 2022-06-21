@@ -152,60 +152,77 @@ namespace TextReda
 
         }
         bool bl = false;
-        private void toolStripTextBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (toolStripTextBox2.Text.Length > 0 && (e.KeyChar == (char)Keys.Enter))
-            {
+        //public void FSearch(string str)
+        //{
+        //    bl = true;
+        //    textBox1.Focus();
+        //    string a = str;
+        //    search_1 = textBox1.Text;
+        //    int b = textBox1.Text.IndexOf(a);
+        //    if (b != -1)
+        //    {
+        //        int b1 = a.Length;
+        //        textBox1.Select(b, b1);
+        //        search_1.Remove(b, b1);
+        //        for (int i = 0; i < b1; i++)
+        //        {
+        //            search_1.Insert(b, ((char)4).ToString());
+        //        }
+        //    }
+        //    textBox1.ReadOnly = true;
 
+        //}
+
+        public string gettextbox()
+        {
+            return textBox1.Text;
+        }
+
+        string search_1; // доп. текст, где мы заменяем символы которые использовали
+        bool k = true;
+        public void NextB(string str)
+        {
+            if (k)
+            {
+                k = false;
                 bl = true;
                 textBox1.Focus();
-                string a = toolStripTextBox2.Text;
+                string a = str;
                 search_1 = textBox1.Text;
                 int b = textBox1.Text.IndexOf(a);
                 if (b != -1)
                 {
                     int b1 = a.Length;
                     textBox1.Select(b, b1);
-                    search_1.Remove(b, b1);
+                    search_1=search_1.Remove(b, b1);
                     for (int i = 0; i < b1; i++)
                     {
-                        search_1.Insert(b, ((char)4).ToString());
+                        search_1=search_1.Insert(b, ((char)4).ToString());
                     }
                 }
-                textBox1.ReadOnly = true;
-
             }
-        }
-
-        string search_1; // доп. текст, где мы заменяем символы которые использовали
-        int k = 0;
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            //textBox1.Modified = true;
-
-            if (e.KeyChar == (char)Keys.Enter && bl)
+            else
             {
-
-                string a = toolStripTextBox2.Text; // то что ищем
-
+                string a = str; // то что 
                 int n = search_1.IndexOf(a);
-
-                if (n == -1) { search_1 = textBox1.Text; return; } // если мы дошли до конца поиска - вернем все символы и поищем обратно
+                if (n == -1)
+                {
+                    search_1 = textBox1.Text;
+                    k = true;
+                    return;
+                } // если мы дошли до конца поиска - вернем все символы и поищем обратно
                 search_1 = search_1.Remove(n, a.Length);
                 //Console.WriteLine("Строка : {0}", str);
+                textBox1.Focus();
                 textBox1.Select(n, a.Length);
                 string add = "";
-
                 for (int i = 0; i < a.Length; i++)
                 {
                     add += ((char)4).ToString();
                 }
                 search_1 = search_1.Insert(n, add);
-
-
             }
-            else return;
+
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -255,6 +272,7 @@ namespace TextReda
 
         private void SearchForm(object sender, EventArgs e)
         {
+            k = true;
             SRForm SR = new SRForm(Search, Replace, this);
             SR.Show();
         }
@@ -304,6 +322,11 @@ namespace TextReda
             Search = false;
             Replace = false;
             SearchForm(sender, e);
+        }
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

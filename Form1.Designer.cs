@@ -50,10 +50,10 @@
             this.форматToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.переносПоСловамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.шрифтToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +66,6 @@
             this.textBox1.Size = new System.Drawing.Size(574, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // menuStrip1
             // 
@@ -75,7 +74,7 @@
             this.файлToolStripMenuItem,
             this.правкаToolStripMenuItem,
             this.форматToolStripMenuItem,
-            this.toolStripTextBox2});
+            this.toolStripTextBox1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(574, 27);
@@ -210,7 +209,7 @@
             // перейтиToolStripMenuItem
             // 
             this.перейтиToolStripMenuItem.Name = "перейтиToolStripMenuItem";
-            this.перейтиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.перейтиToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.перейтиToolStripMenuItem.Text = "Перейти...";
             this.перейтиToolStripMenuItem.Click += new System.EventHandler(this.перейтиToolStripMenuItem_Click);
             // 
@@ -237,17 +236,16 @@
             this.шрифтToolStripMenuItem.Text = "Шрифт";
             this.шрифтToolStripMenuItem.Click += new System.EventHandler(this.шрифтToolStripMenuItem_Click);
             // 
-            // toolStripTextBox2
-            // 
-            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
-            this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
-            this.toolStripTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox2_KeyPress);
-            this.toolStripTextBox2.Click += new System.EventHandler(this.toolStripTextBox2_Click_1);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "s";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox1.Click += new System.EventHandler(this.toolStripTextBox1_Click);
             // 
             // Form1
             // 
@@ -287,7 +285,6 @@
         private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.ToolStripMenuItem переносПоСловамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вырезатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
@@ -297,6 +294,7 @@
         private System.Windows.Forms.ToolStripMenuItem заменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem перейтиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem новоеОкноToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
     }
 }
 

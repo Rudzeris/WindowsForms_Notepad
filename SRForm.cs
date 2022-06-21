@@ -52,11 +52,28 @@ namespace TextReda
             }
         }
 
+        private void PrevB_Click(object sender, EventArgs e)
+        {
+            if (Search == true)// Поиск...
+            {
+
+            }
+            else
+            if (Replace == true)// Замена...
+            {
+
+            }
+            else // Перейти...
+            {
+
+            }
+        }
+
         private void NextB_Click(object sender, EventArgs e)
         {
             if (Search == true)// Поиск...
             {
-                
+                form.NextB(textBox1.Text);
             }
             else
             if (Replace == true)// Замена...
@@ -73,19 +90,32 @@ namespace TextReda
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) // цифры, клавиша BackSpace и запятая
+            if (Search == true)// Поиск...
             {
-                e.Handled = true;
-            }
-            if (textBox1.Text.Length != 0)
-            {
-                NextB.Enabled = true;
+
             }
             else
+            if (Replace == true)// Замена...
             {
-                NextB.Enabled = false;
+
             }
+            else // Перейти...
+            {
+                char number = e.KeyChar;
+                if (!Char.IsDigit(number) && number != 8) // цифры, клавиша BackSpace и запятая
+                {
+                    e.Handled = true;
+                }
+                if (textBox1.Text.Length != 0)
+                {
+                    NextB.Enabled = true;
+                }
+                else
+                {
+                    NextB.Enabled = false;
+                }
+            }
+            
         }
 
         private void SRForm_Resize(object sender, EventArgs e)
