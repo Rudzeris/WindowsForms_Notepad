@@ -40,7 +40,7 @@ namespace TextReda
                 // - здесь заказ кодовой страницы Winl251 для русских букв
                 Писатель.Write(textBox1.Text);
                 Писатель.Close();
-                textBox1.Modified = false;
+                //textBox1.Modified = false;
             }
             catch (System.Exception Ситуация)
             { // Отчет обо всех возможных ошибках
@@ -58,6 +58,7 @@ namespace TextReda
             "Простой редактор", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
             // YES — диалог; NO — выход; CANCEL — редактировать
             if (MBox == DialogResult.No) return;
+            if (MBox == DialogResult.Cancel) e.Cancel = true;
             if (MBox == DialogResult.Yes)
             {
                 if (openFileDialog1.FileName == "")
@@ -118,8 +119,7 @@ namespace TextReda
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form1 fr = new Form1();
-            fr.Show();
+            textBox1.Text = "";
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -133,12 +133,14 @@ namespace TextReda
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //textBox1.Modified = true;
             textBox1.Select();
             textBox1.Copy();
         }
 
         private void вставитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //textBox1.Modified = true;
             textBox1.Paste();
         }
 
@@ -177,7 +179,7 @@ namespace TextReda
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            textBox1.Modified = true;
+            //textBox1.Modified = true;
 
             if (e.KeyChar == (char)Keys.Enter && bl)
             {
@@ -221,6 +223,12 @@ namespace TextReda
                 переносПоСловамToolStripMenuItem.Checked = false;
                 textBox1.WordWrap = false;
             }
+        }
+
+        private void новоеОкноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1 fr = new Form1();
+            fr.Show();
         }
     }
 }
