@@ -178,57 +178,136 @@ namespace TextReda
             return textBox1.Text;
         }
 
-        string search_1; // доп. текст, где мы заменяем символы которые использовали
-        bool k = true;
-        public void NextB(string str)
+        //string search_1; // доп. текст, где мы заменяем символы которые использовали
+        int w = 0; // Записывает где находится select для поиска и замены
+        int[] xs=null;
+
+        private void SearchAll(string str, bool k)
         {
-            if (k)
+
+            if (xs != null)
             {
-                k = false;
-                bl = true;
-                textBox1.Focus();
-                string a = str;
-                search_1 = textBox1.Text;
-                int b = textBox1.Text.IndexOf(a);
-                if (b != -1)
-                {
-                    int b1 = a.Length;
-                    textBox1.Select(b, b1);
-                    search_1=search_1.Remove(b, b1);
-                    for (int i = 0; i < b1; i++)
-                    {
-                        search_1=search_1.Insert(b, ((char)4).ToString());
-                    }
-                }
+                xs = null;
             }
-            else
+            k = false;
+            bl = true;
+            textBox1.Focus();
+            string a = str;
+            string search_1 = textBox1.Text;
+            int b = b = search_1.IndexOf(a); ;
+            while (b != -1)
             {
-                string a = str; // то что 
-                int n = search_1.IndexOf(a);
-                if (n == -1)
+                w++;
+
+                int b1 = a.Length;
+                //textBox1.Select(b, b1);
+                search_1 = search_1.Remove(b, b1);
+                for (int i = 0; i < b1; i++)
                 {
-                    search_1 = textBox1.Text;
-                    k = true;
-                    return;
-                } // если мы дошли до конца поиска - вернем все символы и поищем обратно
-                search_1 = search_1.Remove(n, a.Length);
-                //Console.WriteLine("Строка : {0}", str);
-                textBox1.Focus();
-                textBox1.Select(n, a.Length);
-                string add = "";
-                for (int i = 0; i < a.Length; i++)
-                {
-                    add += ((char)4).ToString();
+                    search_1 = search_1.Insert(b, ((char)4).ToString());
                 }
-                search_1 = search_1.Insert(n, add);
+                b = search_1.IndexOf(a);
+            }
+            xs = new int[w];
+            int j = 0;
+
+            search_1 = textBox1.Text;
+            b = search_1.IndexOf(a); ;
+            while (b != -1)
+            {
+                int b1 = a.Length;
+                //textBox1.Select(b, b1);
+                search_1 = search_1.Remove(b, b1);
+                for (int i = 0; i < b1; i++)
+                {
+                    search_1 = search_1.Insert(b, ((char)4).ToString());
+                }
+                xs[j] = b;
+                b = search_1.IndexOf(a);
+                j++;
             }
 
         }
 
-        private void textBox1_Click(object sender, EventArgs e)
+        int y=0;
+        public void NextB(string str,bool k)
         {
-            bl = false;
-            textBox1.ReadOnly = false;
+            if (k)
+            {
+                SearchAll(str, k);
+                w = curs;
+                if (xs!=null)
+                {
+                    if (xs.Length > 1)
+                    {
+                        for (int i = 0; i < xs.Length - 1; i++)
+                        {
+                            if (xs[i] <= w && xs[i + 1] >= w)
+                            {
+                                if (w > xs[i])
+                                    y = i + 1;
+                                else
+                                    y = i;
+                                y--;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        y = -1;
+                    }
+                }
+            }
+            textBox1.Focus();
+
+            y++;
+            if (y >= xs.Length)
+                y = 0;
+
+            textBox1.Select(xs[y], str.Length);
+            
+            
+        }
+
+        public void PrevB(string str, bool k)
+        {
+            if (k)
+            {
+                SearchAll(str, k);
+                w = curs;
+                if (xs != null)
+                {
+                    if (xs.Length > 1)
+                    {
+                        for (int i = 0; i < xs.Length - 1; i++)
+                        {
+                            if (xs[i] <= w && xs[i + 1] >= w)
+                            {
+                                if (w < xs[i])
+                                    y = i + 1;
+                                else
+                                    y = i;
+                                y++;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        y = xs.Length;
+                    }
+                }
+            }
+            textBox1.Focus();
+
+            y--;
+            if (y < 0)
+                y = xs.Length-1;
+            
+            textBox1.Select(xs[y], str.Length);
+            
+
         }
 
         private void переносПоСловамToolStripMenuItem_Click(object sender, EventArgs e)
@@ -259,7 +338,7 @@ namespace TextReda
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            textBox1.SelectedText = "";
         }
 
         public void settextbox1(string s)
@@ -272,7 +351,6 @@ namespace TextReda
 
         private void SearchForm(object sender, EventArgs e)
         {
-            k = true;
             SRForm SR = new SRForm(Search, Replace, this);
             SR.Show();
         }
@@ -324,9 +402,19 @@ namespace TextReda
             SearchForm(sender, e);
         }
 
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        int curs = 0;
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+            curs = textBox1.SelectionStart;
+            Aaa1.Text = curs.ToString();
+            //textBox1.Text += curs.ToString();
+        }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            curs = textBox1.SelectionStart;
+            Aaa1.Text = curs.ToString();
         }
     }
 }

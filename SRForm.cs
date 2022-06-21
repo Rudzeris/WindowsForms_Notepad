@@ -32,6 +32,7 @@ namespace TextReda
                 label1.Text = "Найти";
                 label2.Visible = false;
                 label2.Enabled = false;
+                textBox2.Visible = false;
 
             }else
             if (Replace == true)// Замена...
@@ -56,7 +57,8 @@ namespace TextReda
         {
             if (Search == true)// Поиск...
             {
-
+                form.PrevB(textBox1.Text, textBox1.Modified);
+                textBox1.Modified = false;
             }
             else
             if (Replace == true)// Замена...
@@ -73,7 +75,8 @@ namespace TextReda
         {
             if (Search == true)// Поиск...
             {
-                form.NextB(textBox1.Text);
+                form.NextB(textBox1.Text,textBox1.Modified);
+                textBox1.Modified = false;
             }
             else
             if (Replace == true)// Замена...
@@ -90,6 +93,7 @@ namespace TextReda
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            textBox1.Modified = true;
             if (Search == true)// Поиск...
             {
 

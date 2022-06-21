@@ -53,7 +53,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.Aaa1 = new System.Windows.Forms.ToolStripTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +66,7 @@
             this.textBox1.Size = new System.Drawing.Size(574, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // menuStrip1
             // 
@@ -74,7 +75,7 @@
             this.файлToolStripMenuItem,
             this.правкаToolStripMenuItem,
             this.форматToolStripMenuItem,
-            this.toolStripTextBox1});
+            this.Aaa1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(574, 27);
@@ -240,12 +241,10 @@
             // 
             this.openFileDialog1.FileName = "s";
             // 
-            // toolStripTextBox1
+            // Aaa1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
-            this.toolStripTextBox1.Click += new System.EventHandler(this.toolStripTextBox1_Click);
+            this.Aaa1.Name = "Aaa1";
+            this.Aaa1.Size = new System.Drawing.Size(100, 23);
             // 
             // Form1
             // 
@@ -294,7 +293,7 @@
         private System.Windows.Forms.ToolStripMenuItem заменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem перейтиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem новоеОкноToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox Aaa1;
     }
 }
 
