@@ -31,6 +31,8 @@
             this.PrevB = new System.Windows.Forms.Button();
             this.NextB = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ReplaceAllB = new System.Windows.Forms.Button();
+            this.ReplaceB = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -40,7 +42,7 @@
             // 
             // PrevB
             // 
-            this.PrevB.Location = new System.Drawing.Point(0, 98);
+            this.PrevB.Location = new System.Drawing.Point(0, 71);
             this.PrevB.Name = "PrevB";
             this.PrevB.Size = new System.Drawing.Size(75, 23);
             this.PrevB.TabIndex = 0;
@@ -50,7 +52,7 @@
             // 
             // NextB
             // 
-            this.NextB.Location = new System.Drawing.Point(125, 98);
+            this.NextB.Location = new System.Drawing.Point(125, 71);
             this.NextB.Name = "NextB";
             this.NextB.Size = new System.Drawing.Size(75, 23);
             this.NextB.TabIndex = 1;
@@ -60,6 +62,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ReplaceAllB);
+            this.groupBox1.Controls.Add(this.ReplaceB);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBox2);
@@ -72,10 +76,30 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
+            // ReplaceAllB
+            // 
+            this.ReplaceAllB.Location = new System.Drawing.Point(125, 100);
+            this.ReplaceAllB.Name = "ReplaceAllB";
+            this.ReplaceAllB.Size = new System.Drawing.Size(75, 23);
+            this.ReplaceAllB.TabIndex = 8;
+            this.ReplaceAllB.Text = "button2";
+            this.ReplaceAllB.UseVisualStyleBackColor = true;
+            this.ReplaceAllB.Click += new System.EventHandler(this.ReplaceAllB_Click);
+            // 
+            // ReplaceB
+            // 
+            this.ReplaceB.Location = new System.Drawing.Point(0, 100);
+            this.ReplaceB.Name = "ReplaceB";
+            this.ReplaceB.Size = new System.Drawing.Size(75, 23);
+            this.ReplaceB.TabIndex = 7;
+            this.ReplaceB.Text = "button1";
+            this.ReplaceB.UseVisualStyleBackColor = true;
+            this.ReplaceB.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 62);
+            this.label2.Location = new System.Drawing.Point(39, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 6;
@@ -92,7 +116,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(94, 62);
+            this.textBox2.Location = new System.Drawing.Point(94, 45);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 4;
@@ -103,6 +127,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // SRForm
@@ -129,5 +154,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button ReplaceB;
+        private System.Windows.Forms.Button ReplaceAllB;
     }
 }

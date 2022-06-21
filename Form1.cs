@@ -208,23 +208,26 @@ namespace TextReda
                 }
                 b = search_1.IndexOf(a);
             }
-            xs = new int[w];
-            int j = 0;
-
-            search_1 = textBox1.Text;
-            b = search_1.IndexOf(a); ;
-            while (b != -1)
+            if (w > 0)
             {
-                int b1 = a.Length;
-                //textBox1.Select(b, b1);
-                search_1 = search_1.Remove(b, b1);
-                for (int i = 0; i < b1; i++)
+                xs = new int[w];
+                int j = 0;
+
+                search_1 = textBox1.Text;
+                b = search_1.IndexOf(a); ;
+                while (b != -1)
                 {
-                    search_1 = search_1.Insert(b, ((char)4).ToString());
+                    int b1 = a.Length;
+                    //textBox1.Select(b, b1);
+                    search_1 = search_1.Remove(b, b1);
+                    for (int i = 0; i < b1; i++)
+                    {
+                        search_1 = search_1.Insert(b, ((char)4).ToString());
+                    }
+                    xs[j] = b;
+                    b = search_1.IndexOf(a);
+                    j++;
                 }
-                xs[j] = b;
-                b = search_1.IndexOf(a);
-                j++;
             }
 
         }
@@ -260,7 +263,8 @@ namespace TextReda
                 }
             }
             textBox1.Focus();
-
+            if (xs == null)
+                return;
             y++;
             if (y >= xs.Length)
                 y = 0;
@@ -300,7 +304,8 @@ namespace TextReda
                 }
             }
             textBox1.Focus();
-
+            if (xs == null)
+                return;
             y--;
             if (y < 0)
                 y = xs.Length-1;
@@ -308,6 +313,25 @@ namespace TextReda
             textBox1.Select(xs[y], str.Length);
             
 
+        }
+
+        public void FReplace(string a, string b,bool bkl)
+        {
+            if (bkl)
+            {
+                textBox1.Select(xs[y], a.Length);
+                textBox1.SelectedText = b;
+                w = xs[y];
+            }
+            else
+            {
+                for(int i = 0; i < xs.Length; i++)
+                {
+                    textBox1.Select(xs[i], a.Length);
+                    textBox1.SelectedText = b;
+                }
+            }
+            textBox1.Modified = true;
         }
 
         private void переносПоСловамToolStripMenuItem_Click(object sender, EventArgs e)
@@ -403,18 +427,18 @@ namespace TextReda
         }
 
         int curs = 0;
+        string curstext = "";
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        public string getcurstext()
         {
-            curs = textBox1.SelectionStart;
-            Aaa1.Text = curs.ToString();
-            //textBox1.Text += curs.ToString();
+            return curstext;
         }
 
-        private void textBox1_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
             curs = textBox1.SelectionStart;
-            Aaa1.Text = curs.ToString();
+            curstext = textBox1.SelectedText;
+            Aaa1.Text = curs.ToString()+curstext;
         }
     }
 }
