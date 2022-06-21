@@ -24,12 +24,12 @@ namespace TextReda
             textBox1.WordWrap = false; // запрещаем перенос строк
             textBox1.Clear();
             this.Text = "Текстовый редактор 3000";
-            openFileDialog1.FileName = "Text2.txt";
+            openFileDialog1.FileName = "";
             openFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
             saveFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
         }
         // Обработчик события Click пункта меню Открыть
-       
+
         // Вспомогательный метод для записи текста в файл
         private void Запись()
         {
@@ -53,20 +53,19 @@ namespace TextReda
         // Обработчик события FormClosing формы
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (textBox1.Modified == false) return; // Если текст модифицирован, то спросить, записывать ли файл
+            if(textBox1.Modified == false) return; // Если текст модифицирован, то спросить, записывать ли файл
             DialogResult MBox = MessageBox.Show("Текст был изменен.\nСохранить изменения?",
             "Простой редактор", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
             // YES — диалог; NO — выход; CANCEL — редактировать
             if (MBox == DialogResult.No) return;
-            if (MBox == DialogResult.Cancel) e.Cancel = true;
             if (MBox == DialogResult.Yes)
             {
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Запись();
-                    return;
-                }
-                else e.Cancel = true; // Передумал выходить из программы
+                if (openFileDialog1.FileName == "")
+                    сохранитьКакToolStripMenuItem_Click_1(sender, e);
+                else
+                    saveFileDialog1.FileName = openFileDialog1.FileName;
+                Запись();
+                return;
             } // DialogResult.Yes
         }
 
@@ -125,23 +124,11 @@ namespace TextReda
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.FileName = openFileDialog1.FileName;
+            if (openFileDialog1.FileName == "")
+                сохранитьКакToolStripMenuItem_Click_1(sender, e);
+            else
+                saveFileDialog1.FileName = openFileDialog1.FileName;
             Запись();
-        }
-
-        private void toolStripTextBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-
         }
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -153,16 +140,6 @@ namespace TextReda
         private void вставитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Paste();
-        }
-
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void toolStripTextBox2_Click_1(object sender, EventArgs e)
@@ -199,6 +176,9 @@ namespace TextReda
         int k = 0;
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+
+            textBox1.Modified = true;
+
             if (e.KeyChar == (char)Keys.Enter && bl)
             {
                 
@@ -227,6 +207,20 @@ namespace TextReda
         {
             bl = false;
             textBox1.ReadOnly = false;
+        }
+
+        private void переносПоСловамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (переносПоСловамToolStripMenuItem.Checked == false)
+            {
+                переносПоСловамToolStripMenuItem.Checked = true;
+                textBox1.WordWrap = true;
+            }
+            else
+            {
+                переносПоСловамToolStripMenuItem.Checked = false;
+                textBox1.WordWrap = false;
+            }
         }
     }
 }
