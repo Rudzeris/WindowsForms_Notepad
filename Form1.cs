@@ -353,10 +353,12 @@ namespace TextReda
                 }
                 else
                 {
-                    while(w!=-1)
+                    int ww = w;
+                    for(int i=xs.Length-1;i>=0;i--)
                     {
-                        textBox1.Select(xs[0], a.Length);
+                        textBox1.Select(xs[i], a.Length);
                         textBox1.SelectedText = b;
+                        
                         NextB(a, true);
                     }
                 }
