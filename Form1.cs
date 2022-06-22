@@ -192,8 +192,8 @@ namespace TextReda
             bl = true;
             textBox1.Focus();
             string a = str;
-            string search_1 = textBox1.Text;
-            int b = search_1.IndexOf(a);
+            string search_2 = textBox1.Text;
+            int b = search_2.IndexOf(a);
             if (b == -1)
                 w = -1;
             while (b != -1)
@@ -202,42 +202,44 @@ namespace TextReda
 
                 int b1 = 1;
                 //textBox1.Select(b, b1);
-                search_1 = search_1.Remove(b, b1);
+                search_2 = search_2.Remove(b, b1);
                 for (int i = 0; i < b1; i++)
                 {
-                    search_1 = search_1.Insert(b, ((char)4).ToString());
+                    search_2 = search_2.Insert(b, ((char)4).ToString());
                 }
-                b = search_1.IndexOf(a);
+                b = search_2.IndexOf(a);
             }
             if (w > 0)
             {
                 xs = new int[w];
                 int j = 0;
 
-                search_1 = textBox1.Text;
-                b = search_1.IndexOf(a); ;
+                search_2 = textBox1.Text;
+                b = search_2.IndexOf(a); ;
                 while (b != -1)
                 {
                     int b1 = 1;
                     //textBox1.Select(b, b1);
-                    search_1 = search_1.Remove(b, b1);
+                    search_2 = search_2.Remove(b, b1);
                     for (int i = 0; i < b1; i++)
                     {
-                        search_1 = search_1.Insert(b, ((char)4).ToString());
+                        search_2 = search_2.Insert(b, ((char)4).ToString());
                     }
                     xs[j] = b;
-                    b = search_1.IndexOf(a);
+                    b = search_2.IndexOf(a);
                     j++;
                 }
             }
 
         }
 
+        bool textModified = true;
         int y=0;
         public void NextB(string str,bool k)
         {
-            if (k)
+            if (k || textModified)
             {
+                textModified = false;
                 SearchAll(str);
                 int ww = curs;
                 if (xs!=null)
@@ -281,8 +283,9 @@ namespace TextReda
 
         public void PrevB(string str, bool k)
         {
-            if (k)
+            if (k || textBox1.Modified)
             {
+                textBox1.Modified = false;
                 SearchAll(str);
                 int ww = curs;
                 if (xs != null)
@@ -335,6 +338,7 @@ namespace TextReda
 
         public void FReplace(string a, string b,bool bkl,bool bk)
         {
+            textModified = true;
             if (w == 0 || bk)
             {
                 NextB(a,true);
@@ -387,12 +391,13 @@ namespace TextReda
 
         private void вырезатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //textBox1.Select();
+            textModified = true;
             textBox1.Cut();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            textModified = true;
             textBox1.SelectedText = "";
         }
 
@@ -430,6 +435,7 @@ namespace TextReda
 
         private void заменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            textModified = true;
             Search = false;
             Replace = true;
             SearchForm(sender, e);
@@ -478,6 +484,7 @@ namespace TextReda
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            textModified = true;
             //search_1 = "";
             w = 0;
             xs = null;
@@ -561,6 +568,7 @@ namespace TextReda
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            textModified = true;
             w = 0;
             xs = null;
         }

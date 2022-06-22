@@ -86,7 +86,7 @@ namespace TextReda
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             textBox1.Modified = true;
-            form.setsearch(textBox1.Text);
+            
             if (Search == true)// Поиск...
             {
 
@@ -143,6 +143,7 @@ namespace TextReda
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             textBox1.Modified = true;
+            form.setsearch(textBox1.Text);
             if (textBox1.Text.Length > 0)
             {
                 NextB.Enabled = true;
