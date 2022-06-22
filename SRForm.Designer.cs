@@ -138,6 +138,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "SRForm";
             this.Text = "SRForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SRForm_FormClosing);
             this.Resize += new System.EventHandler(this.SRForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

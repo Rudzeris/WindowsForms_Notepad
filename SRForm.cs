@@ -35,6 +35,7 @@ namespace TextReda
             if (Search == true)// Поиск...
             {
                 textBox1.Text = form.getcurstext();
+                form.setsearch(textBox1.Text);
                 label1.Text = "Найти";
                 label2.Visible = false;
                 label2.Enabled = false;
@@ -85,7 +86,7 @@ namespace TextReda
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             textBox1.Modified = true;
-            
+            form.setsearch(textBox1.Text);
             if (Search == true)// Поиск...
             {
 
@@ -119,7 +120,7 @@ namespace TextReda
         {
             if (Replace == true)
             {
-                form.FReplace(textBox1.Text,textBox2.Text,true);
+                form.FReplace(textBox1.Text,textBox2.Text,true, textBox1.Modified);
                 textBox1.Modified = true;
             }
             else
@@ -133,13 +134,15 @@ namespace TextReda
         private void ReplaceAllB_Click(object sender, EventArgs e)
         {
 
-            form.FReplace(textBox1.Text, textBox2.Text, false);
+            form.FReplace(textBox1.Text, textBox2.Text, false, textBox1.Modified);
             textBox1.Modified = true;
+            form.setsearch(textBox1.Text);
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            textBox1.Modified = true;
             if (textBox1.Text.Length > 0)
             {
                 NextB.Enabled = true;
@@ -161,6 +164,16 @@ namespace TextReda
             int H = this.Size.Height;
             int W = this.Size.Width;
             groupBox1.Location = new Point(W / 2 - groupBox1.Size.Width / 2, H / 2 - groupBox1.Size.Height * 3 / 4);
+        }
+
+        private void SRForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            form.setsearch(textBox1.Text);
+        }
+ 
+        public string getboxtext()
+        {
+            return textBox1.Text;
         }
     }
 }
