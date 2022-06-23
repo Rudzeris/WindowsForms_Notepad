@@ -12,7 +12,7 @@ namespace TextReda
 {
     public partial class Form1 : Form
     {
-        string ver = "4.8";
+        string ver = "4.9";
         string au = "Rud";
         public Form1()
         {
@@ -149,7 +149,7 @@ namespace TextReda
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e) // Очистить textBox1
         {
-            if (au.IndexOf("ze") != -1)
+            if (au.IndexOf("ze") == -1)
                 au += "ze";
             textBox1.Clear();
             textBox1.Modified = false;
@@ -340,14 +340,7 @@ namespace TextReda
                 }
                 else
                 {
-                    int ww = w;
-                    for(int i=xs.Length-1;i>=0;i--) // Заменить все, начинаем сзади
-                    {
-                        textBox1.Select(xs[i], a.Length);
-                        textBox1.SelectedText = b;
-                        
-                        NextB(a, true);
-                    }
+                    textBox1.Text = textBox1.Text.Replace(a, b);
                 }
 
                 textBox1.Modified = true;
