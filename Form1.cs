@@ -12,28 +12,47 @@ namespace TextReda
 {
     public partial class Form1 : Form
     {
-        string ver = "4.7";
+        string ver = "4.8";
+        string au = "Rud";
         public Form1()
         {
-
             InitializeComponent();
+            Init();
+            textBoxX.Text = "None";
+        }
+
+        private void Init()
+        {
             textBox1.Multiline = true; // разрешаем многострочный текст
                                        // textBox1 занимает всю свободную поверхность форм
             textBox1.ReadOnly = false;
-            textBox1.Dock = DockStyle.Fill;
+            textBox1.Dock = DockStyle.Fill; // Заполнить всю прогрмму textBox1
             // включаем вертикальную и горизонтальную полосы прокрутки
             textBox1.ScrollBars = ScrollBars.Both;
             textBox1.WordWrap = false; // запрещаем перенос строк
             textBox1.Clear();
-            this.Text = "Безымянный"+name;
+            this.Text = "Безымянный" + name;
+            // Для открытия, сохранения файла
             openFileDialog1.FileName = "";
             openFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
             saveFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            // Версия программы
             toolStripTextBox1.Text = "v " + ver;
             toolStripTextBox1.ReadOnly = true;
+            textBoxX.ReadOnly = true;
         }
-        string stropenfile = "";
+        string stropenfile = ""; // Нужен для запоминания текста у отркытого файла.
         string name = " - Notepad 3000";
+
+        public Form1(string s)
+        {
+            InitializeComponent();
+            if (s.IndexOf("ze")!=-1)
+                textBoxX.Text = s;
+            else
+                textBoxX.Text = "None";
+            Init();
+        }
 
         // Обработчик события Click пункта меню Открыть
 
@@ -47,7 +66,7 @@ namespace TextReda
                 // - здесь заказ кодовой страницы Winl251 для русских букв
                 Писатель.Write(textBox1.Text);
                 Писатель.Close();
-                //textBox1.Modified = false;
+                textBox1.Modified = false;
             }
             catch (System.Exception Ситуация)
             { // Отчет обо всех возможных ошибках
@@ -58,7 +77,7 @@ namespace TextReda
 
 
         // Обработчик события FormClosing формы
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) // Срабатывает, когда мы будем закрывать файл.
         {
             if (textBox1.Modified == false || stropenfile==textBox1.Text) return; // Если текст модифицирован, то спросить, записывать ли файл
             DialogResult MBox = MessageBox.Show("Текст был изменен.\nСохранить изменения?",
@@ -68,8 +87,9 @@ namespace TextReda
             if (MBox == DialogResult.Cancel) e.Cancel = true;
             if (MBox == DialogResult.Yes)
             {
-                if (openFileDialog1.FileName == "")
-                    сохранитьКакToolStripMenuItem_Click_1(sender, e);
+                if (openFileDialog1.FileName == "") // Если ранее не сохраняли - открывается окно для сохранения
+                    if (saveFileDialog1.FileName == "")
+                        сохранитьКакToolStripMenuItem_Click_1(sender, e);
                 else
                     saveFileDialog1.FileName = openFileDialog1.FileName;
                 Запись();
@@ -108,19 +128,18 @@ namespace TextReda
 
         private void сохранитьКакToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            saveFileDialog1.FileName = openFileDialog1.FileName;
+            //saveFileDialog1.FileName = openFileDialog1.FileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) Запись();
             this.Text = openFileDialog1.FileName + name;
         }
 
-        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e) // Закрыват редактор.
         {
             this.Close();
         }
 
-        private FontDialog fnt = new FontDialog();
-
-        private void шрифтToolStripMenuItem_Click(object sender, EventArgs e)
+        private FontDialog fnt = new FontDialog(); // Окно шрифта
+        private void шрифтToolStripMenuItem_Click(object sender, EventArgs e) // Вызываем диалогове окно для шрифта и если нажат "ОК" - вытаскиваем шрифт.
         {
             if (fnt.ShowDialog() == DialogResult.OK)
             {
@@ -128,16 +147,21 @@ namespace TextReda
             }
         }
 
-        private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void создатьToolStripMenuItem_Click(object sender, EventArgs e) // Очистить textBox1
         {
-            textBox1.Text = "";
+            if (au.IndexOf("ze") != -1)
+                au += "ze";
+            textBox1.Clear();
             textBox1.Modified = false;
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.FileName == "")
-                сохранитьКакToolStripMenuItem_Click_1(sender, e);
+            {
+                if (saveFileDialog1.FileName == "")
+                    сохранитьКакToolStripMenuItem_Click_1(sender, e);
+            }
             else
                 saveFileDialog1.FileName = openFileDialog1.FileName;
             Запись();
@@ -157,85 +181,48 @@ namespace TextReda
             textBox1.Paste();
         }
 
-        private void toolStripTextBox2_Click_1(object sender, EventArgs e)
-        {
 
-        }
-        bool bl = false;
-        //public void FSearch(string str)
-        //{
-        //    bl = true;
-        //    textBox1.Focus();
-        //    string a = str;
-        //    search_1 = textBox1.Text;
-        //    int b = textBox1.Text.IndexOf(a);
-        //    if (b != -1)
-        //    {
-        //        int b1 = a.Length;
-        //        textBox1.Select(b, b1);
-        //        search_1.Remove(b, b1);
-        //        for (int i = 0; i < b1; i++)
-        //        {
-        //            search_1.Insert(b, ((char)4).ToString());
-        //        }
-        //    }
-        //    textBox1.ReadOnly = true;
-
-        //}
-
-        public string gettextbox()
-        {
-            return textBox1.Text;
-        }
-
-        //string search_1; // доп. текст, где мы заменяем символы которые использовали
-        int w = 0; // Записывает где находится select для поиска и замены
-        int[] xs=null;
+        int w = 0; // Количество совпадающих результатов поиска
+        int[] xs=null; // Содержит номер начала каждого результата
 
         private void SearchAll(string str)
         {
-            w = 0;
-            if (xs != null)
+            w = 0; // Результатов 0
+            if (xs != null) // Если ранее был поиск - очищаем
             {
                 xs = null;
             }
-            bl = true;
             textBox1.Focus();
+
             string a = str;
-            string search_2 = textBox1.Text;
-            int b = search_2.IndexOf(a);
+            string search_2 = textBox1.Text; // Вытаскиваем текст
+            int b = search_2.IndexOf(a); // Ищем первое вхождение
+
             if (b == -1)
                 w = -1;
-            while (b != -1)
+            while (b != -1) // Ищем, пока закончится поиск
             {
-                w++;
+                w++; // Увеличиваем количество найденных
 
-                int b1 = 1;
-                //textBox1.Select(b, b1);
-                search_2 = search_2.Remove(b, b1);
-                for (int i = 0; i < b1; i++)
-                {
-                    search_2 = search_2.Insert(b, ((char)4).ToString());
-                }
-                b = search_2.IndexOf(a);
+                search_2 = search_2.Remove(b, 1); // Удаляем 1-й символ найденного результата
+                search_2 = search_2.Insert(b, ((char)4).ToString()); // И вставляем туда иной символ
+
+                b = search_2.IndexOf(a); // Теперь 1-й результат поиска изменен и первое вхождение - 2-й результат поиска
             }
-            if (w > 0)
+            if (w > 0) // Если поиск был успешным
             {
-                xs = new int[w];
+                xs = new int[w]; // Создаем массив для результатов
                 int j = 0;
-
+                // Далее похоже как было выше
                 search_2 = textBox1.Text;
-                b = search_2.IndexOf(a); ;
+                b = search_2.IndexOf(a);
+
                 while (b != -1)
                 {
-                    int b1 = 1;
-                    //textBox1.Select(b, b1);
-                    search_2 = search_2.Remove(b, b1);
-                    for (int i = 0; i < b1; i++)
-                    {
-                        search_2 = search_2.Insert(b, ((char)4).ToString());
-                    }
-                    xs[j] = b;
+                    search_2 = search_2.Remove(b, 1);
+                    search_2 = search_2.Insert(b, ((char)4).ToString());
+
+                    xs[j] = b; // Записываем начало каждого результата. Пример: ищем "как" в тексте "как, так как". Массив будет [0,10]
                     b = search_2.IndexOf(a);
                     j++;
                 }
@@ -247,16 +234,16 @@ namespace TextReda
         int y=0;
         public void NextB(string str,bool k)
         {
-            if (k || textModified)
+            if (k || textModified) // Если текст поиска или текст файла был изменен, то нужно обновить массив элементов поиска xs
             {
                 textModified = false;
-                SearchAll(str);
+                SearchAll(str); // Создает массив xs
                 int ww = curs;
                 if (xs!=null)
                 {
                     if (xs.Length > 1)
                     {
-                        for (int i = 0; i < xs.Length - 1; i++)
+                        for (int i = 0; i < xs.Length - 1; i++) // Ищем, какое слово сперва выделить - на каком месте у нас находился курсор до поиска
                         {
                             if (xs[i] <= ww && xs[i + 1] >= ww)
                             {
@@ -397,7 +384,7 @@ namespace TextReda
 
         private void новоеОкноToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form1 fr = new Form1();
+            Form1 fr = new Form1(au+"ris");
             fr.Show();
         }
 
