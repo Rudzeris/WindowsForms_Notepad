@@ -155,12 +155,12 @@ namespace TextReda
             textBox1.Modified = false;
         }
 
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e) // Обычное сохранение
         {
             if (openFileDialog1.FileName == "")
             {
                 if (saveFileDialog1.FileName == "")
-                    сохранитьКакToolStripMenuItem_Click_1(sender, e);
+                    сохранитьКакToolStripMenuItem_Click_1(sender, e); // Если у нас файл не был ранее сохранен/открыт - вызывается окно
             }
             else
                 saveFileDialog1.FileName = openFileDialog1.FileName;
@@ -170,14 +170,12 @@ namespace TextReda
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //textBox1.Modified = true;
-            //textBox1.Select();
             textBox1.Copy();
         }
 
         private void вставитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //textBox1.Modified = true;
+            textModified = true;
             textBox1.Paste();
         }
 
