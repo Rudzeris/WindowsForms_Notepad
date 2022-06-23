@@ -12,6 +12,7 @@ namespace TextReda
 {
     public partial class Form1 : Form
     {
+        string ver = "4.7";
         public Form1()
         {
 
@@ -24,11 +25,16 @@ namespace TextReda
             textBox1.ScrollBars = ScrollBars.Both;
             textBox1.WordWrap = false; // запрещаем перенос строк
             textBox1.Clear();
-            this.Text = "Текстовый редактор 3000";
+            this.Text = "Безымянный"+name;
             openFileDialog1.FileName = "";
             openFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
             saveFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            toolStripTextBox1.Text = "v " + ver;
+            toolStripTextBox1.ReadOnly = true;
         }
+        string stropenfile = "";
+        string name = " - Notepad 3000";
+
         // Обработчик события Click пункта меню Открыть
 
         // Вспомогательный метод для записи текста в файл
@@ -54,7 +60,7 @@ namespace TextReda
         // Обработчик события FormClosing формы
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (textBox1.Modified == false) return; // Если текст модифицирован, то спросить, записывать ли файл
+            if (textBox1.Modified == false || stropenfile==textBox1.Text) return; // Если текст модифицирован, то спросить, записывать ли файл
             DialogResult MBox = MessageBox.Show("Текст был изменен.\nСохранить изменения?",
             "Простой редактор", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
             // YES — диалог; NO — выход; CANCEL — редактировать
@@ -81,8 +87,10 @@ namespace TextReda
             { // Создание экземпляра StreamReader для чтения из файла
                 var Читатель = new System.IO.StreamReader(openFileDialog1.FileName,
                 System.Text.Encoding.GetEncoding(1251));
+                this.Text = openFileDialog1.FileName + name;
                 // здесь заказ кодовой страницы Winl251 для русских букв
                 textBox1.Text = Читатель.ReadToEnd();
+                stropenfile = textBox1.Text;
                 Читатель.Close();
             }
             catch (System.IO.FileNotFoundException Ситуация)
@@ -102,6 +110,7 @@ namespace TextReda
         {
             saveFileDialog1.FileName = openFileDialog1.FileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) Запись();
+            this.Text = openFileDialog1.FileName + name;
         }
 
         private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,6 +141,7 @@ namespace TextReda
             else
                 saveFileDialog1.FileName = openFileDialog1.FileName;
             Запись();
+            this.Text = openFileDialog1.SafeFileName + name;
         }
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
