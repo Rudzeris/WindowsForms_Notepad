@@ -116,7 +116,7 @@ namespace TextReda
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Замена или же перейти к строке X
         {
             if (Replace == true)
             {
@@ -131,7 +131,7 @@ namespace TextReda
             }
         }
 
-        private void ReplaceAllB_Click(object sender, EventArgs e)
+        private void ReplaceAllB_Click(object sender, EventArgs e) // Заменить все
         {
 
             form.FReplace(textBox1.Text, textBox2.Text, false, textBox1.Modified);
@@ -140,7 +140,7 @@ namespace TextReda
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e) // Если мы не заполнили textbox, то кнопки отключаются
         {
             textBox1.Modified = true;
             form.setsearch(textBox1.Text);
@@ -160,7 +160,7 @@ namespace TextReda
             }
         }
 
-        private void SRForm_Resize(object sender, EventArgs e)
+        private void SRForm_Resize(object sender, EventArgs e) // Если менять размер окна, то элементы остаются в середине
         {
             int H = this.Size.Height;
             int W = this.Size.Width;
@@ -170,11 +170,6 @@ namespace TextReda
         private void SRForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             form.setsearch(textBox1.Text);
-        }
- 
-        public string getboxtext()
-        {
-            return textBox1.Text;
         }
     }
 }

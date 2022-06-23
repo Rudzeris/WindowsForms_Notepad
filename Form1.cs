@@ -241,9 +241,9 @@ namespace TextReda
                 {
                     if (xs.Length > 1)
                     {
-                        for (int i = 0; i < xs.Length - 1; i++) // Ищем, какое слово сперва выделить - на каком месте у нас находился курсор до поиска
+                        for (int i = 0; i < xs.Length - 1; i++) // Ищем, какое слово выделить первым - на каком месте у нас находился курсор до поиска
                         {
-                            if (xs[i] <= ww && xs[i + 1] >= ww)
+                            if (xs[i] <= ww && xs[i + 1] >= ww) // Если нашли, что курсор между двумя найденными словами
                             {
                                 if (ww > xs[i])
                                     y = i + 1;
@@ -261,12 +261,12 @@ namespace TextReda
                 }
             }
             textBox1.Focus();
-            if (xs == null)
+            if (xs == null) // Если поиск дал 0 результатов
             {
                 textBox1.Select(curs, 0);
                 return;
             }
-                
+                // сдвиг вперед
             y++;
             if (y >= xs.Length)
                 y = 0;
@@ -312,6 +312,8 @@ namespace TextReda
                 textBox1.Select(curs, 0);
                 return;
             }
+
+            // сдвиг назад
             y--;
             if (y < 0)
                 y = xs.Length-1;
@@ -321,26 +323,16 @@ namespace TextReda
 
         }
 
-        public void setboxmod(bool b)
-        {
-            textBox1.Modified = b;
-        }
-
-        public bool getboxmod()
-        {
-            return textBox1.Modified;
-        }
-
-        public void FReplace(string a, string b,bool bkl,bool bk)
+        public void FReplace(string a, string b,bool bkl,bool bk) // Заменить и Заменить все
         {
             textModified = true;
-            if (w == 0 || bk)
+            if (w == 0 || bk) // Поиск дал 0 результатов или же поиска не было
             {
                 NextB(a,true);
             }
             if (w != -1)
             {
-                if (bkl)
+                if (bkl) // Заменить
                 {
                     textBox1.Select(xs[y], a.Length);
                     textBox1.SelectedText = b;
@@ -349,7 +341,7 @@ namespace TextReda
                 else
                 {
                     int ww = w;
-                    for(int i=xs.Length-1;i>=0;i--)
+                    for(int i=xs.Length-1;i>=0;i--) // Заменить все, начинаем сзади
                     {
                         textBox1.Select(xs[i], a.Length);
                         textBox1.SelectedText = b;
@@ -398,16 +390,12 @@ namespace TextReda
             textBox1.SelectedText = "";
         }
 
-        public void settextbox1(string s)
-        {
-            textBox1.Text = s;
-        }
-
+        // Для окна поиска
         bool Search = false;
         bool Replace = false;
         SRForm SR = null;
 
-        private void SearchForm(object sender, EventArgs e)
+        private void SearchForm(object sender, EventArgs e) // Создается новая форма
         {
             if (SR == null)
             {
@@ -438,7 +426,7 @@ namespace TextReda
             SearchForm(sender, e);
         }
 
-        public void cross(int X)
+        public void cross(int X) // Перейти на указанную строку
         {
             textBox1.Focus();
             string str = textBox1.Text;
@@ -479,7 +467,7 @@ namespace TextReda
             return curstext;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e) // Если изменяется основной текст
         {
             textModified = true;
             //search_1 = "";
@@ -496,10 +484,11 @@ namespace TextReda
             search_1 = b;
         }
 
-        private void найтиДалееToolStripMenuItem_Click(object sender, EventArgs e)
+        private void найтиДалееToolStripMenuItem_Click(object sender, EventArgs e) 
         {
             Search = true;
             //Aaa1.Text = search_1;
+            // Если мы не задали, что нужно искать - создаем окно поиска, если у нас что-то есть - используем NextB
             if (SR != null)
             {
                 if (search_1 != "")
@@ -530,7 +519,7 @@ namespace TextReda
             }
         }
 
-        private void найтиРанееToolStripMenuItem_Click(object sender, EventArgs e)
+        private void найтиРанееToolStripMenuItem_Click(object sender, EventArgs e) // Так же как выше
         {
             Search = true;
             if (SR != null)
