@@ -12,7 +12,7 @@ namespace TextReda
 {
     public partial class Form1 : Form
     {
-        string ver = "5.1";
+        string ver = "5.2";
         string au = "Rud";
         public Form1()
         {
@@ -34,8 +34,8 @@ namespace TextReda
             this.Text = "Безымянный" + name;
             // Для открытия, сохранения файла
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
-            saveFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            openFileDialog1.Filter = "Текстовые файлы (*.txt, *.rtf)|*.txt;*.rtf|Все файлы (*.*)|*.*";
+            saveFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Обогащенный текстовый файл (*.rtf)|*.rtf|Все файлы (*.*)|*.*";
             // Версия программы
             toolStripTextBox1.Text = "v " + ver;
             toolStripTextBox1.ReadOnly = true;
