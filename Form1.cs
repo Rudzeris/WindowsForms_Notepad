@@ -12,7 +12,7 @@ namespace TextReda
 {
     public partial class Form1 : Form
     {
-        string ver = "5.2";
+        string ver = "5.3";
         string au = "Rud";
         public Form1()
         {
@@ -108,6 +108,8 @@ namespace TextReda
                 var Читатель = new System.IO.StreamReader(openFileDialog1.FileName,
                 System.Text.Encoding.GetEncoding(1251));
                 this.Text = openFileDialog1.FileName + name;
+                openFileDialog1.FileName = openFileDialog1.SafeFileName;
+                saveFileDialog1.FileName = openFileDialog1.SafeFileName;
                 // здесь заказ кодовой страницы Winl251 для русских букв
                 textBox1.Text = Читатель.ReadToEnd();
                 stropenfile = textBox1.Text;
@@ -128,9 +130,10 @@ namespace TextReda
 
         private void сохранитьКакToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            //saveFileDialog1.FileName = openFileDialog1.FileName;
+            saveFileDialog1.FileName = openFileDialog1.SafeFileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) Запись();
-            this.Text = openFileDialog1.FileName + name;
+            this.Text = saveFileDialog1.FileName + name;
+            openFileDialog1.FileName = saveFileDialog1.FileName;
         }
 
         private void закрытьToolStripMenuItem_Click(object sender, EventArgs e) // Закрыват редактор.
