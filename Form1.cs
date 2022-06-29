@@ -12,7 +12,7 @@ namespace TextReda
 {
     public partial class Form1 : Form
     {
-        string ver = "4.9";
+        string ver = "5.1";
         string au = "Rud";
         public Form1()
         {
@@ -28,7 +28,7 @@ namespace TextReda
             textBox1.ReadOnly = false;
             textBox1.Dock = DockStyle.Fill; // Заполнить всю прогрмму textBox1
             // включаем вертикальную и горизонтальную полосы прокрутки
-            textBox1.ScrollBars = ScrollBars.Both;
+            //textBox1.ScrollBars = ScrollBars.Both;
             textBox1.WordWrap = false; // запрещаем перенос строк
             textBox1.Clear();
             this.Text = "Безымянный" + name;
@@ -141,9 +141,10 @@ namespace TextReda
         private FontDialog fnt = new FontDialog(); // Окно шрифта
         private void шрифтToolStripMenuItem_Click(object sender, EventArgs e) // Вызываем диалогове окно для шрифта и если нажат "ОК" - вытаскиваем шрифт.
         {
+            
             if (fnt.ShowDialog() == DialogResult.OK)
             {
-                textBox1.Font = fnt.Font;
+                textBox1.SelectionFont = fnt.Font;
             }
         }
 
