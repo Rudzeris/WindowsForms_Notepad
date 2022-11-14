@@ -18,7 +18,7 @@ namespace TextReda
         {
             InitializeComponent();
             Init();
-            textBoxX.Text = "None";
+            textBoxX.Text = "Rudzeris";
         }
 
         private void Init()
